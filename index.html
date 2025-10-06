@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Dussehra!</title>
+    <!-- Google Fonts for stylish typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Basic Reset and Setup */
+        :root {
+            --golden-color: #FFD700;
+            --glow-color-1: #ffc400;
+            --glow-color-2: #ff8c00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            /* Prevents scrollbars from appearing */
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            /* Fallback for video */
+        }
+
+        /* Fullscreen Video Background */
+        #bg-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            /* Ensures the video covers the screen without distortion */
+        }
+
+        /* Semi-transparent overlay to ensure text readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            max-width: 800px;
+        }
+
+        /* Main Heading: "Happy Dussehra" */
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            /* Responsive font size */
+            color: var(--golden-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            /* Golden glowing effect using multiple text shadows */
+            text-shadow:
+                0 0 5px var(--golden-color),
+                0 0 15px var(--golden-color),
+                0 0 30px var(--glow-color-1),
+                0 0 50px var(--glow-color-2);
+            /* Fade-in animation */
+            animation: fadeIn 3s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Motivational Quote with Typing Effect */
+        .quote {
+            color: #fff;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-top: 20px;
+            min-height: 80px;
+            /* Reserve space to prevent layout shift */
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Blinking cursor for the typing effect */
+        .quote::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            color: var(--golden-color);
+            position: absolute;
+            right: -10px;
+        }
+
+        .quote.typing-done::after {
+            display: none;
+            /* Hide cursor when typing is done */
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Signature "By GK" */
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--golden-color);
+            margin-top: 30px;
+            text-shadow: 0 0 5px var(--glow-color-1), 0 0 10px var(--glow-color-2);
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out 1s forwards;
+            /* Delayed fade-in */
+        }
+
+        /* Floating Emojis Styling */
+        .emoji {
+            position: absolute;
+            bottom: -50px;
+            /* Start from below the screen */
+            user-select: none;
+            z-index: 10;
+            animation-timing-function: linear;
+        }
+
+        /* Different animations for random emoji movement */
+        @keyframes floatUp {
+            to {
+                transform: translateY(-110vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatDiagonalLeft {
+            to {
+                transform: translateY(-110vh) translateX(-20vw) rotate(-360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes floatDiagonalRight {
+            to {
+                transform: translateY(-110vh) translateX(20vw) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <!-- Using a festive video from Pexels -->
+        <source src="Happy Dussehra 2022 Animation After Effects Templates _ VGcreation _ Motion Graphics.mp4"
+            type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Content Overlay -->
+    <div class="overlay">
+        <div class="content-wrapper">
+            <h1>Happy Dussehra</h1>
+            <p class="quote" id="quote"></p>
+            <p class="signature">By yuvraj</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Typing Effect ---
+            const quoteElement = document.getElementById('quote');
+            const quoteText = "Celebrating the victory of good over evil. May this day clear all hurdles of your life and start a new era of well-being.";
+            let charIndex = 0;
+
+            function typeWriter() {
+                if (charIndex < quoteText.length) {
+                    quoteElement.textContent += quoteText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 80); // Adjust typing speed here
+                } else {
+                    // When typing is done, add a class to hide the cursor
+                    quoteElement.classList.add('typing-done');
+                }
+            }
+
+            // Start typing after a delay to let the main title appear
+            setTimeout(typeWriter, 2000);
+
+
+            // --- Floating Emojis Effect ---
+            const emojiCharacters = ['🎉', '🔥', '✨', '💥', '🎊', '🪔', '🕉️', '🏹'];
+            const animationNames = ['floatUp', 'floatDiagonalLeft', 'floatDiagonalRight'];
+
+            function createEmoji() {
+                const emoji = document.createElement('span');
+                emoji.classList.add('emoji');
+
+                // Pick a random emoji from the array
+                emoji.innerText = emojiCharacters[Math.floor(Math.random() * emojiCharacters.length)];
+
+                // Set random horizontal position
+                emoji.style.left = Math.random() * 100 + 'vw';
+
+                // Set random font size
+                emoji.style.fontSize = Math.random() * 2 + 1 + 'rem';
+
+                // Set random animation duration for varied speeds
+                const duration = Math.random() * 5 + 8; // Between 8 and 13 seconds
+                emoji.style.animationDuration = duration + 's';
+
+                // Set a random animation delay
+                emoji.style.animationDelay = Math.random() * 2 + 's';
+
+                // Randomly select an animation name
+                const randomAnimation = animationNames[Math.floor(Math.random() * animationNames.length)];
+                emoji.style.animationName = randomAnimation;
+
+                document.body.appendChild(emoji);
+
+                // Remove the emoji from the DOM after its animation completes
+                setTimeout(() => {
+                    emoji.remove();
+                }, (duration + 2) * 1000); // Duration + max delay
+            }
+
+            // Create a new emoji every 300ms for a continuous stream
+            setInterval(createEmoji, 300);
+        });
+    </script>
+
+</body>
+
+</html>
